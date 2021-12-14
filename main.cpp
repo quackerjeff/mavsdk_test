@@ -4,7 +4,13 @@
 
 int main()
 {
-	Generic_Port* port = new Serial_Port("/dev/tty.usbmodem01", 57600);
+#ifdef __APPLE__
+	char uart_name[] = "/dev/tty.usbmodem01";
+#else
+	char uart_name[] = "/dev/ttyUSB0";
+#endif
+
+	Generic_Port* port = new Serial_Port(uart_name, 57600);
 
 	try {
 		port->start();
